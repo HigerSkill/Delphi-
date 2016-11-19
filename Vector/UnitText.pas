@@ -64,19 +64,17 @@ procedure TContainer.Sort;
 var temp: TVector;
     j, i: integer;
 begin
-  for j := 1 to k-1 do begin
-    for i := 1 to k-j-1 do begin
+  for j := 1 to k-1 do
+    for i := 1 to k-j-1 do
       if mas[i].module > mas[i+1].module then begin
         temp := mas[i];
         mas[i] := mas[i+1];
         mas[i+1] := temp;
       end;
-    end;
-  end;
 end;
 
 initialization
-contain := TContainer.Create('C:\file.txt');
+contain := TContainer.Create('F:\file.txt');
 
   writeln('k = ', k);
   writeln('Container before sort');

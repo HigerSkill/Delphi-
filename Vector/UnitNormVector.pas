@@ -14,7 +14,7 @@ interface
 
    end;
 
-   var modul, temp: real;
+   var temp: real;
        n: integer;
        v3: TNormVector;
 
@@ -24,6 +24,7 @@ implementation
 
 constructor TNormVector.Create(n: integer);
 var i: integer;
+var modul:real;
 begin
     SetLength(coordinates, n);
     self.n := n;
@@ -43,6 +44,7 @@ end;
 
 constructor TNormVector.Create(n: integer; coord: TReal);
 var i: integer;
+var modul:real;
 begin
     SetLength(coordinates, n);
     self.n := n;
@@ -61,6 +63,7 @@ end;
 
 procedure TNormVector.NormVector;
 var i: integer;
+var modul:real;
 begin
   self.getCoord; // заполняем массив коррдинатами
   modul := self.module;
@@ -79,6 +82,8 @@ begin
 end;
 
 initialization
+if flag then
+   begin
   write('Demension for normal vector = ');
   readln(n);
 
@@ -86,10 +91,13 @@ initialization
   v3.print();
 
   v3.setVector();
+  end;
 
   finalization
+  if flag then
+   begin
     v3.Destroy;
-
+  end;
 
 end.
 

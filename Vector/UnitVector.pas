@@ -1,6 +1,7 @@
 unit UnitVector;
 
 interface
+const flag = not true;
 type TReal = array of real;
 type TVector = class
 
@@ -166,6 +167,8 @@ begin
 end;
 
 initialization
+if flag then
+   begin
  write('N(dimension) = ');
  readln(n);
 
@@ -191,12 +194,14 @@ initialization
   writeln('l = ', v0.Demension);
 
   writeln('Module = ', v2.module:4:1);
-
-
+  end;
 finalization
-
+if flag then
+   begin
   v0.Destroy;
   v1.Destroy;
   v2.Destroy;
+
+end;
 end.
 
