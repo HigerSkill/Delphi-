@@ -32,7 +32,7 @@ type
     root: node;
 
     constructor Create(alpha: real);
-    destructor Destroy(); overload;
+    destructor Destroy(); override;
     function sizeOf(x: node): integer;
     function haT(): real;
     function isDeep(depth: integer): boolean;
@@ -251,6 +251,7 @@ begin
   x := self.root;
 
   depth := 0;
+  q := -1;
 
   // Заполняем TList вершинами
   while x <> Nil do
@@ -344,6 +345,7 @@ var l, t, nd: integer;
   readln(alpha);
   // Устанавливаем параметр alpha
   tree := scapegoattree.Create(alpha);
+  writeln('1: Add element. 2: Print tree. 3: Delete node. 4: Search node.');
   while  l <> 0 do
     begin
       write('Enter: ');
