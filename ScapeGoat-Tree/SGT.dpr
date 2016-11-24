@@ -10,7 +10,7 @@ uses
   Math;
 
 type
-  Node = class // Класс узла
+  Node = class // ГЉГ«Г Г±Г± ГіГ§Г«Г 
   public
     key: integer;
     left: node;
@@ -24,9 +24,9 @@ type
      nodesList: TList;
 
 type
-  ScapeGoatTree = class  // Класс дерева со штрафами
+  ScapeGoatTree = class  // ГЉГ«Г Г±Г± Г¤ГҐГ°ГҐГўГ  Г±Г® ГёГІГ°Г ГґГ Г¬ГЁ
   public
-    a: real; // Параметр alpha
+    a: real; // ГЏГ Г°Г Г¬ГҐГІГ° alpha
     size: integer;
     max_size: integer;
     root: node;
@@ -49,7 +49,7 @@ type
     procedure Print();
   end;
 
- // Конструктор класса node
+ // ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЄГ«Г Г±Г±Г  node
 constructor Node.Create(k: integer);
 begin
   self.key := k;
@@ -57,7 +57,7 @@ begin
   self.right := Nil;
 end;
 
-// Конструктор класса ScapeGoatTree
+// ГЉГ®Г­Г±ГІГ°ГіГЄГІГ®Г° ГЄГ«Г Г±Г±Г  ScapeGoatTree
 constructor ScapeGoatTree.Create(alpha: real);
 begin
   self.a := alpha;
@@ -66,7 +66,7 @@ begin
   self.root := Nil;
 end;
 
-// Возвращает количество "ключей" в поддереве с корнем x, включая сам x
+// Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® "ГЄГ«ГѕГ·ГҐГ©" Гў ГЇГ®Г¤Г¤ГҐГ°ГҐГўГҐ Г± ГЄГ®Г°Г­ГҐГ¬ x, ГўГЄГ«ГѕГ·Г Гї Г±Г Г¬ x
 function ScapeGoatTree.sizeOf(x: node): integer;
 begin
   if x = Nil then begin
@@ -76,19 +76,19 @@ begin
   result := 1 + self.sizeOf(x.left) + self.sizeOf(x.right);
 end;
 
-// Формула для проверки балансировки по весу
+// Г”Г®Г°Г¬ГіГ«Г  Г¤Г«Гї ГЇГ°Г®ГўГҐГ°ГЄГЁ ГЎГ Г«Г Г­Г±ГЁГ°Г®ГўГЄГЁ ГЇГ® ГўГҐГ±Гі
 function ScapeGoatTree.haT(): real;
 begin
   result := floor(logN(1.0/self.a, self.size));
 end;
 
-// Проверка баланса по весу
+// ГЏГ°Г®ГўГҐГ°ГЄГ  ГЎГ Г«Г Г­Г±Г  ГЇГ® ГўГҐГ±Гі
 function ScapeGoatTree.isDeep(depth: integer): boolean;
 begin
   result := depth > self.haT();
 end;
 
-// Возвращает узел брата nodes, у которого родитель parent
+// Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ ГіГ§ГҐГ« ГЎГ°Г ГІГ  nodes, Гі ГЄГ®ГІГ®Г°Г®ГЈГ® Г°Г®Г¤ГЁГІГҐГ«Гј parent
 function ScapeGoatTree.brotherOf(nodes: node; parent: node): node;
 begin
   if (parent.left <> Nil) and (parent.left.key = nodes.key) then
@@ -97,7 +97,7 @@ begin
     result := parent.left;
 end;
 
-// Перестройка дерева
+// ГЏГҐГ°ГҐГ±ГІГ°Г®Г©ГЄГ  Г¤ГҐГ°ГҐГўГ 
 function ScapeGoatTree.myRebuildTree(root_: node; length: integer): node;
 begin
   nodesList := TList.Create;
@@ -105,7 +105,7 @@ begin
   result := self.buildTreeFromSortedList(nodesList, 0, length-1);
 end;
 
-// Заполнение вершин в TList в inorder порядке
+// Г‡Г ГЇГ®Г«Г­ГҐГ­ГЁГҐ ГўГҐГ°ГёГЁГ­ Гў TList Гў inorder ГЇГ®Г°ГїГ¤ГЄГҐ
 procedure ScapeGoatTree.flatten(nodes: node; nodesList: TList);
 begin
   if nodes = Nil then
@@ -117,9 +117,9 @@ begin
   self.flatten(nodes.right, nodesList);
 end;
 
-// Перестройка дерева из сортированного TList
+// ГЏГҐГ°ГҐГ±ГІГ°Г®Г©ГЄГ  Г¤ГҐГ°ГҐГўГ  ГЁГ§ Г±Г®Г°ГІГЁГ°Г®ГўГ Г­Г­Г®ГЈГ® TList
 function ScapeGoatTree.buildTreeFromSortedList(nodesList: TList; start, ends: real): node;
-var mid: integer; // Медиана
+var mid: integer; // ГЊГҐГ¤ГЁГ Г­Г 
     d, leftNode, rightNode, p: node;
 begin
   if start > ends then
@@ -137,7 +137,7 @@ begin
   result := p;
 end;
 
-// Поиск минимальной вершины
+// ГЏГ®ГЁГ±ГЄ Г¬ГЁГ­ГЁГ¬Г Г«ГјГ­Г®Г© ГўГҐГ°ГёГЁГ­Г»
 function ScapeGoatTree.minimum(x: node): node;
 begin
   while x.left <> Nil do
@@ -145,7 +145,7 @@ begin
   result := x;
 end;
 
-// Удаление элемента
+// Г“Г¤Г Г«ГҐГ­ГЁГҐ ГЅГ«ГҐГ¬ГҐГ­ГІГ 
 procedure ScapeGoatTree.delete(delete_me: integer);
 var is_left_child: boolean;
     succesor, tmp: node;
@@ -155,7 +155,7 @@ begin
   parent := Nil;
   is_left_child := True;
 
-  // Поиск элемента для удаления
+  // ГЏГ®ГЁГ±ГЄ ГЅГ«ГҐГ¬ГҐГ­ГІГ  Г¤Г«Гї ГіГ¤Г Г«ГҐГ­ГЁГї
   while nodes.key <> delete_me do
   begin
     parent := nodes;
@@ -171,16 +171,16 @@ begin
       end;
   end;
 
-    succesor := Nil; // Наследник
-  // Узел не имеющий детей
+    succesor := Nil; // ГЌГ Г±Г«ГҐГ¤Г­ГЁГЄ
+  // Г“Г§ГҐГ« Г­ГҐ ГЁГ¬ГҐГѕГ№ГЁГ© Г¤ГҐГІГҐГ©
   if (nodes.left = Nil) and (nodes.right = Nil) then
     begin end
-  else if nodes.left = Nil then // Если есть только правый "сын"
+  else if nodes.left = Nil then // Г…Г±Г«ГЁ ГҐГ±ГІГј ГІГ®Г«ГјГЄГ® ГЇГ°Г ГўГ»Г© "Г±Г»Г­"
     succesor := nodes.right
-  else if nodes.right = Nil then // Если есть только левый "сын"
+  else if nodes.right = Nil then // Г…Г±Г«ГЁ ГҐГ±ГІГј ГІГ®Г«ГјГЄГ® Г«ГҐГўГ»Г© "Г±Г»Г­"
     succesor := nodes.left
-  else // Если есть и правый и левый
-    begin // Поиск наследника
+  else // Г…Г±Г«ГЁ ГҐГ±ГІГј ГЁ ГЇГ°Г ГўГ»Г© ГЁ Г«ГҐГўГ»Г©
+    begin // ГЏГ®ГЁГ±ГЄ Г­Г Г±Г«ГҐГ¤Г­ГЁГЄГ 
       succesor := self.minimum(nodes.right);
         if succesor = nodes.right then
           succesor.left := nodes.left
@@ -193,7 +193,7 @@ begin
             nodes.right.left := tmp;
           end;
     end;
-    // Перемещение узла
+    // ГЏГҐГ°ГҐГ¬ГҐГ№ГҐГ­ГЁГҐ ГіГ§Г«Г 
     if parent = Nil then
       self.root := succesor
     else if is_left_child then
@@ -202,15 +202,15 @@ begin
       parent.right := succesor;
 
     self.size := self.size - 1;
-    // Проверка на сбалансированность
-    if self.size < (self.a * self.max_size) then
+    // ГЏГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г±ГЎГ Г«Г Г­Г±ГЁГ°Г®ГўГ Г­Г­Г®Г±ГІГј
+    if self.size <= (self.a * self.max_size) then
       begin
         self.root := self.myRebuildTree(self.root, self.size);
         self.max_size := self.size;
       end;
 end;
 
-// Поиск заданной веришны
+// ГЏГ®ГЁГ±ГЄ Г§Г Г¤Г Г­Г­Г®Г© ГўГҐГ°ГЁГёГ­Г»
 function ScapeGoatTree.search(k: integer): node;
 begin
   x := self.root;
@@ -229,7 +229,7 @@ begin
   result := Nil;
 end;
 
-// Баланс по весу
+// ГЃГ Г«Г Г­Г± ГЇГ® ГўГҐГ±Гі
 function ScapeGoatTree.isAWeightBalanced(x: node; size_of_x: integer): boolean;
 var c, b: boolean;
 begin
@@ -238,7 +238,7 @@ begin
   result := c and b;
 end;
 
-// Вставка нового элемента
+// Г‚Г±ГІГ ГўГЄГ  Г­Г®ГўГ®ГЈГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ 
 procedure ScapeGoatTree.insert(k: integer);
 var y, z, scapegoat, size_temp, tmp: node;
     depth, i, q: integer;
@@ -253,7 +253,7 @@ begin
   depth := 0;
   q := -1;
 
-  // Заполняем TList вершинами
+  // Г‡Г ГЇГ®Г«Г­ГїГҐГ¬ TList ГўГҐГ°ГёГЁГ­Г Г¬ГЁ
   while x <> Nil do
     begin
       parents.insert(0, x);
@@ -275,7 +275,7 @@ begin
   self.size := self.size + 1;
   self.max_size := max(self.size, self.max_size);
 
-  // Нужна ли перебалансировка
+  // ГЌГіГ¦Г­Г  Г«ГЁ ГЇГҐГ°ГҐГЎГ Г«Г Г­Г±ГЁГ°Г®ГўГЄГ 
   if self.isDeep(depth) then
     begin
       scapegoat := Nil;
@@ -294,14 +294,14 @@ begin
 
           if not (self.isAWeightBalanced(parents[i], sizes[i]+1)) then
             begin
-              scapegoat := parents[i]; // Нашли вершину, нарушающую баланс
+              scapegoat := parents[i]; // ГЌГ ГёГ«ГЁ ГўГҐГ°ГёГЁГ­Гі, Г­Г Г°ГіГёГ ГѕГ№ГіГѕ ГЎГ Г«Г Г­Г±
               q := i;
             end;
         end;
     if scapegoat <> Nil then
       begin
       tmp := self.myRebuildTree(scapegoat, sizes[q]+1);
-      // Перестроили дерево
+      // ГЏГҐГ°ГҐГ±ГІГ°Г®ГЁГ«ГЁ Г¤ГҐГ°ГҐГўГ®
       scapegoat.left := tmp.left;
       scapegoat.right := tmp.right;
       scapegoat.key := tmp.key;
@@ -309,7 +309,7 @@ begin
     end;
 end;
 
-// Вывод дерева
+// Г‚Г»ГўГ®Г¤ Г¤ГҐГ°ГҐГўГ 
 procedure ScapeGoatTree.inorder(x: Node; k: integer);
 begin
   if x <> Nil then
@@ -320,7 +320,7 @@ begin
     end;
 end;
 
-// Передача значения self.root
+// ГЏГҐГ°ГҐГ¤Г Г·Г  Г§Г­Г Г·ГҐГ­ГЁГї self.root
 procedure ScapeGoatTree.print();
 begin
   self.inorder(self.root, 0);
@@ -343,7 +343,7 @@ var l, t, nd: integer;
   l := -1;
   write('Enter alpha: ');
   readln(alpha);
-  // Устанавливаем параметр alpha
+  // Г“Г±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ ГЇГ Г°Г Г¬ГҐГІГ° alpha
   tree := scapegoattree.Create(alpha);
   writeln('1: Add element. 2: Print tree. 3: Delete node. 4: Search node.');
   while  l <> 0 do
